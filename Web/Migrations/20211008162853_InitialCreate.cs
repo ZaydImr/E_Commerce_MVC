@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Infrastructure.Migrations
+namespace Web.Migrations
 {
     public partial class InitialCreate : Migration
     {
@@ -261,7 +261,7 @@ namespace Infrastructure.Migrations
             migrationBuilder.InsertData(
                 table: "Commande",
                 columns: new[] { "Id", "DateCommande", "ItemId", "PaymentMethodeId", "QteCommande", "UserId", "priceCommande" },
-                values: new object[] { new Guid("bc500d5f-6b39-4cad-9dce-7d506ef6e20f"), new DateTime(2021, 9, 19, 16, 3, 26, 244, DateTimeKind.Local).AddTicks(9593), null, null, 100, null, 100.15000000000001 });
+                values: new object[] { new Guid("f262dcb9-3aa3-4623-a00a-c2f61d39ad23"), new DateTime(2021, 10, 8, 17, 28, 52, 887, DateTimeKind.Local).AddTicks(4796), null, null, 100, null, 100.15000000000001 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Cart_ItemId",

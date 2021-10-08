@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Core.Interfaces
+namespace Web.Interfaces
 {
     public interface IUnitOfWork<T> where T : class
     {

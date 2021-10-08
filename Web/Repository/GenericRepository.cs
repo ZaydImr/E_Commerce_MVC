@@ -1,11 +1,11 @@
-﻿using Core.Interfaces;
+﻿using Web.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Infrastructure.Repository
+namespace Web.Repository
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {

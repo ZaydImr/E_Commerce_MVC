@@ -5,9 +5,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
-using Infrastructure;
-using Core.Interfaces;
-using Infrastructure.UnitOfWork;
+using Web;
+using Web.Interfaces;
+using Web.UnitOfWork;
 
 namespace Web
 {

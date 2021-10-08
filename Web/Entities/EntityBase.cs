@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Core.Entities
+namespace Web.Entities
 {
     public class EntityBase
     {

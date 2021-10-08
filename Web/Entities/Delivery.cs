@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Core.Entities
-{
+namespace Web.Entities
+{ 
     public class Delivery : EntityBase
     {
         public DateTime dateDelivery { get; set; }

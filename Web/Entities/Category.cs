@@ -1,4 +1,4 @@
-﻿namespace Core.Entities
+﻿namespace Web.Entities
 {
     public class Category : EntityBase
     {

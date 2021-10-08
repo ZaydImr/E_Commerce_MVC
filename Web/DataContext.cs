@@ -1,10 +1,10 @@
-﻿using Core.Entities;
+﻿using Web.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Infrastructure
+namespace Web
 {
     public class DataContext : DbContext
     {

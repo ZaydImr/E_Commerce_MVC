@@ -1,10 +1,10 @@
-﻿using Core.Interfaces;
-using Infrastructure.Repository;
+﻿using Web.Interfaces;
+using Web.Repository;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Infrastructure.UnitOfWork
+namespace Web.UnitOfWork
 {
     public class UnitOfWork<T> : IUnitOfWork<T> where T : class
     {
