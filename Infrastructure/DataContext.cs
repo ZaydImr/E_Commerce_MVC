@@ -17,14 +17,23 @@ namespace Infrastructure
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Commande>().Property(x => x.Id).HasDefaultValueSql("NEWID()");
 
-            modelBuilder.Entity<Commande>().HasData(
-                new Commande
+
+            /*TypeUser typeUser = new TypeUser
+            {
+                Id = Guid.NewGuid(),
+                nameType = "User",
+            } ;
+            modelBuilder.Entity<TypeUser>().HasData(typeUser);
+                
+            modelBuilder.Entity<User>().HasData(
+                new User
                 {
                     Id = Guid.NewGuid(),
-                    DateCommande = DateTime.Now,
-                    QteCommande = 100,
-                    priceCommande = 100.15
-                }) ;
+                    Username = "test",
+                    Password = "test",
+                    Numero = "0618053929",
+                    TypeUser = typeUser
+                });*/
         }
         public DbSet<Commande> Commande { get; set; }
         public DbSet<Cart> Cart { get; set; }

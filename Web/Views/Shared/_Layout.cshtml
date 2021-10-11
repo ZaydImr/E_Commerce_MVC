@@ -4,8 +4,29 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Sell it - @ViewBag.Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
 </head>
 <body>
+    <nav>
+    <ul>
+        <li class="nav-item">
+            <a class="nav-item text-dark" asp-area=""  asp-controller="Account" asp-action="Index">Privacy</a>
+        </li>
+        @if(User.Identity.IsAuthenticated)
+            {
+                <li class="nav-item">
+                    <a class="nav-item text-dark" asp-area=""  asp-controller="Account" asp-action="Logout">Logout</a>
+                </li>
+                <li>
+                    @User.Identity.Name
+                </li>
+
+            }
+        
+    </ul>
+        
+    </nav>
+    
     <div>
         @RenderBody()
     </div>

@@ -6,6 +6,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Web.ViewModels;
+using System.Security.Cryptography;
+using Core;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Web.Controllers
 {
@@ -24,7 +27,7 @@ namespace Web.Controllers
         {
             var homeViewModel = new HomeViewModel
             {
-                UserConnected = _userConnected.Entity.GetById(Guid.Parse("BC511D5F-6B39-4CAD-9DCE-7D506EF6E20F")),
+                UserConnected = _userConnected.Entity.GetById(Guid.Parse("F291DCB9-3AA3-4623-A01A-C2F61D39AD23")),
                 Items = _item.Entity.GetAll().ToList()
             };
 
