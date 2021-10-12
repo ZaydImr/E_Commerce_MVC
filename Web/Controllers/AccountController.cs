@@ -23,9 +23,17 @@ namespace Web.Controllers
         }
 
         [Authorize]
-        public IActionResult Index()
+        public  IActionResult Index()
         {
-            return View();
+            string id = User.Claims.ToList().Where(c=>c.Type == "userId").FirstOrDefault().Value;
+
+            User user = _userConnected.Entity.GetById(Guid.Parse(id));
+            if (user == null)
+            {
+                return Redirect("/");
+            }
+
+            return View(user);
         }
 
         [HttpGet("login")]
@@ -46,6 +54,7 @@ namespace Web.Controllers
                         returnUrl = "/";
                     var claims = new List<Claim>();
                     claims.Add(new Claim("username", username));
+                    claims.Add(new Claim("userId", user.Id.ToString()));
                     claims.Add(new Claim(ClaimTypes.NameIdentifier, user.Fullname));
                     var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                     var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
