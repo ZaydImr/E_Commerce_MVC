@@ -25,13 +25,7 @@ namespace Web.Controllers
 
         public IActionResult Index()
         {
-            var homeViewModel = new HomeViewModel
-            {
-                UserConnected = _userConnected.Entity.GetById(Guid.Parse("F291DCB9-3AA3-4623-A01A-C2F61D39AD23")),
-                Items = _item.Entity.GetAll().ToList()
-            };
-
-            return View(homeViewModel);
+            return View();
         }
     }
 }

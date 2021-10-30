@@ -7,8 +7,8 @@
     var returnUrl = ViewData["returnUrl"] as string;
     var error = TempData["Error"] as string;
 }
-<div class="login">
-    <h1>Login</h1>
+<div class="login bg-light">
+    <h1 style="margin-bottom:1.5rem">Login</h1>
     @if(!String.IsNullOrEmpty(error))
     {
         <div class="alert alert-danger" role="alert">

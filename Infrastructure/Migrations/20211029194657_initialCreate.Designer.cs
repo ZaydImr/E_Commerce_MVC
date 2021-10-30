@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210919150326_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20211029194657_initialCreate")]
+    partial class initialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -33,14 +33,20 @@ namespace Infrastructure.Migrations
                     b.Property<int>("Qte")
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("UserId")
+                    b.Property<string>("Username")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<Guid>("idItem")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("idUser")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ItemId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("Username");
 
                     b.ToTable("Cart");
                 });
@@ -78,8 +84,17 @@ namespace Infrastructure.Migrations
                     b.Property<int>("QteCommande")
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("UserId")
+                    b.Property<string>("Username")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("idItem")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("idPaymentMethode")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("idUser")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("priceCommande")
                         .HasColumnType("float");
@@ -90,18 +105,9 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("PaymentMethodeId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("Username");
 
                     b.ToTable("Commande");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("bc500d5f-6b39-4cad-9dce-7d506ef6e20f"),
-                            DateCommande = new DateTime(2021, 9, 19, 16, 3, 26, 244, DateTimeKind.Local).AddTicks(9593),
-                            QteCommande = 100,
-                            priceCommande = 100.15000000000001
-                        });
                 });
 
             modelBuilder.Entity("Core.Entities.Delivery", b =>
@@ -113,8 +119,8 @@ namespace Infrastructure.Migrations
                     b.Property<Guid?>("CommandeId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("DileveryManId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("DeliveryManUsername")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<float>("PriceDelivery")
                         .HasColumnType("real");
@@ -125,11 +131,17 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime>("dateDelivery")
                         .HasColumnType("datetime2");
 
+                    b.Property<Guid>("idCommande")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("idDeliveryMan")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CommandeId");
 
-                    b.HasIndex("DileveryManId");
+                    b.HasIndex("DeliveryManUsername");
 
                     b.ToTable("Delivery");
                 });
@@ -178,11 +190,20 @@ namespace Infrastructure.Migrations
                     b.Property<int>("QteItem")
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("UserId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Username")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("Views")
                         .HasColumnType("int");
+
+                    b.Property<Guid>("idCategory")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("idImage")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("idUser")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -190,7 +211,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("ImageId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("Username");
 
                     b.ToTable("Item");
                 });
@@ -205,6 +226,12 @@ namespace Infrastructure.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("PaymentMethodeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("idItem")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("idPaymentMethode")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
@@ -228,17 +255,17 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime>("DateMessage")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("UserProviderId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("usernameProvider")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<Guid?>("UserReceiverId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("usernameReceiver")
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserProviderId");
+                    b.HasIndex("usernameProvider");
 
-                    b.HasIndex("UserReceiverId");
+                    b.HasIndex("usernameReceiver");
 
                     b.ToTable("Message");
                 });
@@ -269,13 +296,19 @@ namespace Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("TypeUser");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("5849b298-1663-4b57-9356-e8af058e24b8"),
+                            nameType = "User"
+                        });
                 });
 
             modelBuilder.Entity("Core.Entities.User", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Username")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("AdresseUser")
                         .HasColumnType("nvarchar(max)");
@@ -292,25 +325,34 @@ namespace Infrastructure.Migrations
                     b.Property<Guid?>("TypeUserId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Username")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("idTypeUser")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("Id");
+                    b.HasKey("Username");
 
                     b.HasIndex("TypeUserId");
 
                     b.ToTable("User");
+
+                    b.HasData(
+                        new
+                        {
+                            Username = "test",
+                            Numero = "0618053929",
+                            Password = "test",
+                            idTypeUser = new Guid("5849b298-1663-4b57-9356-e8af058e24b8")
+                        });
                 });
 
             modelBuilder.Entity("Core.Entities.Cart", b =>
                 {
                     b.HasOne("Core.Entities.Item", "Item")
-                        .WithMany()
+                        .WithMany("carts")
                         .HasForeignKey("ItemId");
 
                     b.HasOne("Core.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
+                        .WithMany("carts")
+                        .HasForeignKey("Username");
 
                     b.Navigation("Item");
 
@@ -324,12 +366,12 @@ namespace Infrastructure.Migrations
                         .HasForeignKey("ItemId");
 
                     b.HasOne("Core.Entities.PaymentMethode", "PaymentMethode")
-                        .WithMany()
+                        .WithMany("commandes")
                         .HasForeignKey("PaymentMethodeId");
 
                     b.HasOne("Core.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
+                        .WithMany("commandes")
+                        .HasForeignKey("Username");
 
                     b.Navigation("Item");
 
@@ -341,31 +383,31 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Core.Entities.Delivery", b =>
                 {
                     b.HasOne("Core.Entities.Commande", "Commande")
-                        .WithMany()
+                        .WithMany("deliveries")
                         .HasForeignKey("CommandeId");
 
-                    b.HasOne("Core.Entities.User", "DileveryMan")
-                        .WithMany()
-                        .HasForeignKey("DileveryManId");
+                    b.HasOne("Core.Entities.User", "DeliveryMan")
+                        .WithMany("deliveries")
+                        .HasForeignKey("DeliveryManUsername");
 
                     b.Navigation("Commande");
 
-                    b.Navigation("DileveryMan");
+                    b.Navigation("DeliveryMan");
                 });
 
             modelBuilder.Entity("Core.Entities.Item", b =>
                 {
                     b.HasOne("Core.Entities.Category", "Category")
-                        .WithMany()
+                        .WithMany("items")
                         .HasForeignKey("CategoryId");
 
                     b.HasOne("Core.Entities.Image", "Image")
-                        .WithMany()
+                        .WithMany("items")
                         .HasForeignKey("ImageId");
 
                     b.HasOne("Core.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
+                        .WithMany("items")
+                        .HasForeignKey("Username");
 
                     b.Navigation("Category");
 
@@ -381,7 +423,7 @@ namespace Infrastructure.Migrations
                         .HasForeignKey("ItemId");
 
                     b.HasOne("Core.Entities.PaymentMethode", "PaymentMethode")
-                        .WithMany()
+                        .WithMany("itemPaymentMethodes")
                         .HasForeignKey("PaymentMethodeId");
 
                     b.Navigation("Item");
@@ -392,12 +434,12 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Core.Entities.Message", b =>
                 {
                     b.HasOne("Core.Entities.User", "UserProvider")
-                        .WithMany()
-                        .HasForeignKey("UserProviderId");
+                        .WithMany("messagesSender")
+                        .HasForeignKey("usernameProvider");
 
                     b.HasOne("Core.Entities.User", "UserReceiver")
-                        .WithMany()
-                        .HasForeignKey("UserReceiverId");
+                        .WithMany("messagesReceiver")
+                        .HasForeignKey("usernameReceiver");
 
                     b.Navigation("UserProvider");
 
@@ -407,10 +449,57 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Core.Entities.User", b =>
                 {
                     b.HasOne("Core.Entities.TypeUser", "TypeUser")
-                        .WithMany()
+                        .WithMany("Users")
                         .HasForeignKey("TypeUserId");
 
                     b.Navigation("TypeUser");
+                });
+
+            modelBuilder.Entity("Core.Entities.Category", b =>
+                {
+                    b.Navigation("items");
+                });
+
+            modelBuilder.Entity("Core.Entities.Commande", b =>
+                {
+                    b.Navigation("deliveries");
+                });
+
+            modelBuilder.Entity("Core.Entities.Image", b =>
+                {
+                    b.Navigation("items");
+                });
+
+            modelBuilder.Entity("Core.Entities.Item", b =>
+                {
+                    b.Navigation("carts");
+                });
+
+            modelBuilder.Entity("Core.Entities.PaymentMethode", b =>
+                {
+                    b.Navigation("commandes");
+
+                    b.Navigation("itemPaymentMethodes");
+                });
+
+            modelBuilder.Entity("Core.Entities.TypeUser", b =>
+                {
+                    b.Navigation("Users");
+                });
+
+            modelBuilder.Entity("Core.Entities.User", b =>
+                {
+                    b.Navigation("carts");
+
+                    b.Navigation("commandes");
+
+                    b.Navigation("deliveries");
+
+                    b.Navigation("items");
+
+                    b.Navigation("messagesReceiver");
+
+                    b.Navigation("messagesSender");
                 });
 #pragma warning restore 612, 618
         }

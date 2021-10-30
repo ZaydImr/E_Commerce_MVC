@@ -28,7 +28,6 @@ namespace Web
             {
                 string connectionS = Cryptage.DecryptSym(System.Convert.FromBase64String(configuration.GetConnectionString("defaultConnection")), Cryptage.cle, Cryptage.iv);
                // options.UseSqlServer(configuration.GetConnectionString("defaultConnection"));
-                //options.UseSqlServer(configuration.GetConnectionString("defaultConnection"));
                 options.UseSqlServer(connectionS);
             });
             services.AddScoped(typeof(IUnitOfWork<>), typeof(UnitOfWork<>));

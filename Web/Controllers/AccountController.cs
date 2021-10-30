@@ -9,7 +9,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Web.ViewModels;
 
 namespace Web.Controllers
 {
@@ -25,9 +24,9 @@ namespace Web.Controllers
         [Authorize]
         public  IActionResult Index()
         {
-            string id = User.Claims.ToList().Where(c=>c.Type == "userId").FirstOrDefault().Value;
+            string username = User.Claims.ToList().Where(c=>c.Type == "username").FirstOrDefault().Value;
 
-            User user = _userConnected.Entity.GetById(Guid.Parse(id));
+            User user = _userConnected.Entity.GetById(username);
             if (user == null)
             {
                 return Redirect("/");
@@ -53,8 +52,7 @@ namespace Web.Controllers
                     if (String.IsNullOrEmpty(returnUrl))
                         returnUrl = "/";
                     var claims = new List<Claim>();
-                    claims.Add(new Claim("username", username));
-                    claims.Add(new Claim("userId", user.Id.ToString()));
+                    claims.Add(new Claim("username", user.Username));
                     claims.Add(new Claim(ClaimTypes.NameIdentifier, user.Fullname));
                     var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                     var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);

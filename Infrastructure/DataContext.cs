@@ -16,24 +16,27 @@ namespace Infrastructure
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Commande>().Property(x => x.Id).HasDefaultValueSql("NEWID()");
+            modelBuilder.Entity<Message>().HasOne(m => m.UserProvider)
+                                          .WithMany(u => u.messagesSender)
+                                          .HasForeignKey(fk => fk.usernameProvider);
+
+            modelBuilder.Entity<Message>().HasOne(m => m.UserReceiver)
+                                          .WithMany(u => u.messagesReceiver)
+                                          .HasForeignKey(fk => fk.usernameReceiver);
 
 
-            /*TypeUser typeUser = new TypeUser
-            {
-                Id = Guid.NewGuid(),
-                nameType = "User",
-            } ;
+            TypeUser typeUser = new TypeUser{ Id = Guid.NewGuid(), nameType = "User" };
             modelBuilder.Entity<TypeUser>().HasData(typeUser);
-                
+            
             modelBuilder.Entity<User>().HasData(
                 new User
                 {
-                    Id = Guid.NewGuid(),
+                    Fullname = "Zayd Elimrani",
                     Username = "test",
                     Password = "test",
                     Numero = "0618053929",
-                    TypeUser = typeUser
-                });*/
+                    idTypeUser = typeUser.Id
+                });
         }
         public DbSet<Commande> Commande { get; set; }
         public DbSet<Cart> Cart { get; set; }

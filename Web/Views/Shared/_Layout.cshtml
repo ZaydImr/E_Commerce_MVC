@@ -1,81 +1,75 @@
-﻿<!DOCTYPE html>
-
+﻿@using System.Security.Claims;
+<!DOCTYPE html>
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Sell it - @ViewBag.Title</title>
-    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/site.css?t=13" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.1/font/bootstrap-icons.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200&display=swap" rel="stylesheet">
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
-        <a class="navbar-brand" asp-controller="Home" asp-action="Index">
-            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="49" height="49" viewBox="0 0 1500 1500" style="border-radius:5px">
-              <defs>
-                <clipPath id="clip-Artboard_1">
-                  <rect width="1500" height="1500"/>
-                </clipPath>
-              </defs>
-              <g id="Artboard_1" data-name="Artboard 1" clip-path="url(#clip-Artboard_1)">
-                <rect id="Rectangle_4" data-name="Rectangle 4" width="1500" height="1500" fill="#630bde"/>
-                <g id="Group_9" data-name="Group 9" transform="translate(-0.48 0.054)">
-                  <path id="Path_1" data-name="Path 1" d="M382.48,748.878v-.78c.36-259.694,184.164-367.152,385.882-367.152,127.878,0,205.278,45.99,205.278,45.99v61.193s-69.058-46.141-194.427-46.141c-102.825,0-327.279,51.794-328.292,304.567,0,.582,0,1.168,0,1.752,0,.377,0,.753,0,1.13.637,257.157,209.482,306.108,328.294,306.108,123.244,0,194.427-56.936,194.427-56.936V1059.6s-75.156,59.452-215.374,59.452C616.925,1119.056,382.48,1048.382,382.48,748.878Zm278.1,323.682a398.413,398.413,0,0,1-60.382-20.379A376.686,376.686,0,0,0,660.584,1072.56Z" fill="#fff"/>
-                  <path id="Path_2" data-name="Path 2" d="M787.961,730.916h.642q12.526,0,18.952,20.558h0q12.848,38.544,18.308,38.544h0q4.176,0,8.674-6.423h0q90.26-132.66,167.023-188.87h0q32.444-23.769,63.277-23.769h0q40.8,0,49.144,2.569h0q3.539.965,3.539,8.031h0q0,5.781-7.386,14.454h0Q903.594,833.06,864.086,904.368h0Q850.6,928.779,801.772,928.78h0q-16.059,0-33.727-8.352h0q-7.387-3.853-25.7-49.144h0q-23.127-57.176-23.127-100.216h0q0-15.739,22.485-26.019h0q30.836-14.133,46.254-14.133Z" fill="#fa0"/>
-                </g>
-              </g>
-            </svg>
+        <a class="navbar-brand" asp-controller="Home" asp-action="Index" style="color:var(--primary-color);">
+            <i class="bi bi-cart3"></i>
+            <label style="cursor:pointer;">E-commerce</label>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <form class="d-flex input-group">
-            <span class="input-group-text" id="inputGroup-sizing-default">Default</span>
-            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-            <button class="btn btn-outline-success">Search</button>
+            <input type="text" class="form-control" aria-label="Search" aria-describedby="Search input">
+            <button class="btn btn-outline-mine">Search</button>
           </form>
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-                <a class="nav-link active" asp-area=""  asp-controller="Home" asp-action="Index">Home</a>
+                <a class="nav-link"  asp-controller="Home" asp-action="Index">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Link</a>
+                <a class="nav-link"  asp-controller="Home" asp-action="Categories">Categories</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link disabled">Disabled</a>
+                <a class="nav-link"  asp-controller="Home" asp-action="Index">Chat</a>
             </li>
           </ul>
-          
+          @if(User.Identity.IsAuthenticated)
+          {
+           <div class="dropdown">
+              <button class="btn dropdown-toggle" style="display:flex;align-items:center;margin-left:20px;" type="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                  @foreach(var claim in User.Claims)
+                       {
+                            @if(claim.Type == ClaimTypes.NameIdentifier)
+                            {
+                                @claim.Value;
+                            }
+                        }
+                <i class="bi bi-person-circle" style="color: var(--primary-color);font-size:18px;padding-left:10px;"></i>
+              </button>
+
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink" style="margin-left:20px;">
+                <li><a class="dropdown-item" asp-controller="Account" asp-action="Index">Account</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" asp-controller="Account" asp-action="Logout">Logout</a></li>
+              </ul>
+            </div>
+          }
+          else 
+          {
+            <a class="nav-link" style="padding-right:5px; color: var(--primary-color);"  asp-controller="Account" asp-action="Login">Login <i class="bi bi-box-arrow-in-right"></i></a>
+          }
         </div>
       </div>
     </nav>
-    <nav>
-    <ul>
-        <li class="nav-item">
-            <a class="nav-item text-dark" asp-area=""  asp-controller="Account" asp-action="Index">Privacy</a>
-        </li>
-        @if(User.Identity.IsAuthenticated)
-            {
-                <li class="nav-item">
-                    <a class="nav-item text-dark" asp-area=""  asp-controller="Account" asp-action="Logout">Logout</a>
-                </li>
-                    @foreach(var claim in User.Claims)
-                    {
-                        @if(@claim.Type == "username")
-                        {
-                            <li>@claim.Value</li>
-                        }
-                    }
-
-            }
-        
-    </ul>
-        
-    </nav>
     
-    <div>
+    <div class="main">
         @RenderBody()
     </div>
+    <!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Infrastructure.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class initialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -59,17 +59,17 @@ namespace Infrastructure.Migrations
                 name: "User",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Username = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Username = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Fullname = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Numero = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     AdresseUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    idTypeUser = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     TypeUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_User", x => x.Id);
+                    table.PrimaryKey("PK_User", x => x.Username);
                     table.ForeignKey(
                         name: "FK_User_TypeUser_TypeUserId",
                         column: x => x.TypeUserId,
@@ -90,8 +90,11 @@ namespace Infrastructure.Migrations
                     DatePost = table.Column<DateTime>(type: "datetime2", nullable: false),
                     QteItem = table.Column<int>(type: "int", nullable: false),
                     Views = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    idUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Username = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    idCategory = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    idImage = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ImageId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
@@ -110,10 +113,10 @@ namespace Infrastructure.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Item_User_UserId",
-                        column: x => x.UserId,
+                        name: "FK_Item_User_Username",
+                        column: x => x.Username,
                         principalTable: "User",
-                        principalColumn: "Id",
+                        principalColumn: "Username",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -124,23 +127,23 @@ namespace Infrastructure.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Content = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DateMessage = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UserProviderId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    UserReceiverId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    usernameProvider = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    usernameReceiver = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Message", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Message_User_UserProviderId",
-                        column: x => x.UserProviderId,
+                        name: "FK_Message_User_usernameProvider",
+                        column: x => x.usernameProvider,
                         principalTable: "User",
-                        principalColumn: "Id",
+                        principalColumn: "Username",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Message_User_UserReceiverId",
-                        column: x => x.UserReceiverId,
+                        name: "FK_Message_User_usernameReceiver",
+                        column: x => x.usernameReceiver,
                         principalTable: "User",
-                        principalColumn: "Id",
+                        principalColumn: "Username",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -149,8 +152,10 @@ namespace Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     Qte = table.Column<int>(type: "int", nullable: false),
+                    idUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Username = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    idItem = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ItemId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
@@ -163,10 +168,10 @@ namespace Infrastructure.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Cart_User_UserId",
-                        column: x => x.UserId,
+                        name: "FK_Cart_User_Username",
+                        column: x => x.Username,
                         principalTable: "User",
-                        principalColumn: "Id",
+                        principalColumn: "Username",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -178,9 +183,12 @@ namespace Infrastructure.Migrations
                     DateCommande = table.Column<DateTime>(type: "datetime2", nullable: false),
                     QteCommande = table.Column<int>(type: "int", nullable: false),
                     priceCommande = table.Column<double>(type: "float", nullable: false),
+                    idItem = table.Column<int>(type: "int", nullable: false),
                     ItemId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    idPaymentMethode = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     PaymentMethodeId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    idUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Username = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -198,10 +206,10 @@ namespace Infrastructure.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Commande_User_UserId",
-                        column: x => x.UserId,
+                        name: "FK_Commande_User_Username",
+                        column: x => x.Username,
                         principalTable: "User",
-                        principalColumn: "Id",
+                        principalColumn: "Username",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -211,6 +219,8 @@ namespace Infrastructure.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ItemId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    idItem = table.Column<int>(type: "int", nullable: false),
+                    idPaymentMethode = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     PaymentMethodeId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
@@ -236,10 +246,12 @@ namespace Infrastructure.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     dateDelivery = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DileveryManId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    CommandeId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     PriceDelivery = table.Column<float>(type: "real", nullable: false),
-                    Status = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    idDeliveryMan = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DeliveryManUsername = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    idCommande = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CommandeId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -251,17 +263,22 @@ namespace Infrastructure.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Delivery_User_DileveryManId",
-                        column: x => x.DileveryManId,
+                        name: "FK_Delivery_User_DeliveryManUsername",
+                        column: x => x.DeliveryManUsername,
                         principalTable: "User",
-                        principalColumn: "Id",
+                        principalColumn: "Username",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.InsertData(
-                table: "Commande",
-                columns: new[] { "Id", "DateCommande", "ItemId", "PaymentMethodeId", "QteCommande", "UserId", "priceCommande" },
-                values: new object[] { new Guid("bc500d5f-6b39-4cad-9dce-7d506ef6e20f"), new DateTime(2021, 9, 19, 16, 3, 26, 244, DateTimeKind.Local).AddTicks(9593), null, null, 100, null, 100.15000000000001 });
+                table: "TypeUser",
+                columns: new[] { "Id", "nameType" },
+                values: new object[] { new Guid("5849b298-1663-4b57-9356-e8af058e24b8"), "User" });
+
+            migrationBuilder.InsertData(
+                table: "User",
+                columns: new[] { "Username", "AdresseUser", "Fullname", "Numero", "Password", "TypeUserId", "idTypeUser" },
+                values: new object[] { "test", null, null, "0618053929", "test", null, new Guid("5849b298-1663-4b57-9356-e8af058e24b8") });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Cart_ItemId",
@@ -269,9 +286,9 @@ namespace Infrastructure.Migrations
                 column: "ItemId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Cart_UserId",
+                name: "IX_Cart_Username",
                 table: "Cart",
-                column: "UserId");
+                column: "Username");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Commande_ItemId",
@@ -284,9 +301,9 @@ namespace Infrastructure.Migrations
                 column: "PaymentMethodeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Commande_UserId",
+                name: "IX_Commande_Username",
                 table: "Commande",
-                column: "UserId");
+                column: "Username");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Delivery_CommandeId",
@@ -294,9 +311,9 @@ namespace Infrastructure.Migrations
                 column: "CommandeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Delivery_DileveryManId",
+                name: "IX_Delivery_DeliveryManUsername",
                 table: "Delivery",
-                column: "DileveryManId");
+                column: "DeliveryManUsername");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Item_CategoryId",
@@ -309,9 +326,9 @@ namespace Infrastructure.Migrations
                 column: "ImageId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Item_UserId",
+                name: "IX_Item_Username",
                 table: "Item",
-                column: "UserId");
+                column: "Username");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ItemPaymentMethode_ItemId",
@@ -324,14 +341,14 @@ namespace Infrastructure.Migrations
                 column: "PaymentMethodeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Message_UserProviderId",
+                name: "IX_Message_usernameProvider",
                 table: "Message",
-                column: "UserProviderId");
+                column: "usernameProvider");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Message_UserReceiverId",
+                name: "IX_Message_usernameReceiver",
                 table: "Message",
-                column: "UserReceiverId");
+                column: "usernameReceiver");
 
             migrationBuilder.CreateIndex(
                 name: "IX_User_TypeUserId",
