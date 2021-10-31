@@ -7,7 +7,7 @@
     var returnUrl = ViewData["returnUrl"] as string;
     var error = TempData["Error"] as string;
 }
-<div class="login bg-light">
+<div class="login bg-light  shadow-s">
     <h1 style="margin-bottom:1.5rem">Login</h1>
     @if(!String.IsNullOrEmpty(error))
     {
@@ -28,6 +28,6 @@
           <input name="password" type="password" class="form-control" id="inputPassword">
         </div>
       </div>
-      <input type="submit" value="login" />
+      <input type="submit" value="login" class="btn" style="background-color:var(--primary-color); color:#fff"  />
     </form>
 </div>

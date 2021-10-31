@@ -3,20 +3,20 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Sell it - @ViewBag.Title</title>
-    <link rel="stylesheet" href="~/css/site.css?t=13" />
+    <title>Sell it now - @ViewBag.Title</title>
+    <link rel="stylesheet" href="~/css/site.css?t=15" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.1/font/bootstrap-icons.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200&display=swap" rel="stylesheet">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
       <div class="container-fluid">
         <a class="navbar-brand" asp-controller="Home" asp-action="Index" style="color:var(--primary-color);">
             <i class="bi bi-cart3"></i>
-            <label style="cursor:pointer;">E-commerce</label>
+            <label style="cursor:pointer;">Sell it now</label>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -24,7 +24,7 @@
         <form class="d-flex input-group">
             <input type="text" class="form-control" aria-label="Search" aria-describedby="Search input">
             <button class="btn btn-outline-mine">Search</button>
-          </form>
+         </form>
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
@@ -34,13 +34,13 @@
                 <a class="nav-link"  asp-controller="Home" asp-action="Categories">Categories</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link"  asp-controller="Home" asp-action="Index">Chat</a>
+                <a class="nav-link"  asp-controller="Chat" asp-action="Index">Chat</a>
             </li>
           </ul>
           @if(User.Identity.IsAuthenticated)
           {
            <div class="dropdown">
-              <button class="btn dropdown-toggle" style="display:flex;align-items:center;margin-left:20px;" type="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+              <button class="btn dropdown-toggle" style="display:flex;align-items:center;" type="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                   @foreach(var claim in User.Claims)
                        {
                             @if(claim.Type == ClaimTypes.NameIdentifier)
@@ -51,7 +51,7 @@
                 <i class="bi bi-person-circle" style="color: var(--primary-color);font-size:18px;padding-left:10px;"></i>
               </button>
 
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink" style="margin-left:20px;">
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                 <li><a class="dropdown-item" asp-controller="Account" asp-action="Index">Account</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" asp-controller="Account" asp-action="Logout">Logout</a></li>

@@ -14,16 +14,21 @@ namespace Web.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IUnitOfWork<User> _userConnected;
+        private readonly IUnitOfWork<Message> message;
         private readonly IUnitOfWork<Item> _item;
 
-        public HomeController(IUnitOfWork<User> userConnected, IUnitOfWork<Item> Item)
+        public HomeController(IUnitOfWork<Message> message, IUnitOfWork<Item> Item)
         {
-            _userConnected = userConnected;
+            this.message = message;
             _item = Item;
         }
 
         public IActionResult Index()
+        {
+            return View();
+        }
+
+        public IActionResult Categories()
         {
             return View();
         }

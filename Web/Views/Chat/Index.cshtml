@@ -1,0 +1,27 @@
+﻿@model IEnumerable<Core.Entities.Message>
+@{
+    ViewData["Title"] = "Chat";
+}
+
+@{
+    <div class="chat">
+        <div class="sidebar shadow-s">
+            <form class="d-flex input-group">
+                <input type="text" class="form-control" aria-label="Search a conversation..." placeholder="Search a conversation..." aria-describedby="Search input">
+                <button type="button" class="btn btn-outline-mine-primary"><i class="bi bi-search"></i></button>
+            </form>
+            <div class="chats">
+                @foreach(var chat in Model)
+                {
+                    <div class="cnv">
+                        <h4>@chat.usernameProvider</h4>
+                        <label>@chat.Content</label>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="content shadow-s">
+            
+        </div>
+    </div>  
+}

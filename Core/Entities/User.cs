@@ -11,8 +11,11 @@ namespace Core.Entities
         public string Username { get; set; }
         public string Password { get; set; }
         public string Fullname { get; set; }
-        public string Numero { get; set; }
+        public string phoneNumber { get; set; }
+        public string fixNumber { get; set; }
         public string AdresseUser { get; set; }
+        public string imgPath { get; set; }
+        public string websiteUrl { get; set; }
 
         [ForeignKey("fk_User_TypeUser")]
         public Guid idTypeUser { get; set; }

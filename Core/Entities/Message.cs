@@ -7,6 +7,8 @@ namespace Core.Entities
     {
         public string Content { get; set; }
         public DateTime DateMessage { get; set; }
+        public bool seen { get; set; }
+        public bool deleted { get; set; }
 
         public string usernameProvider { get; set; }
         public User UserProvider { get; set; }

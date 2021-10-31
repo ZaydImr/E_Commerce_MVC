@@ -23,21 +23,8 @@ namespace Infrastructure
             modelBuilder.Entity<Message>().HasOne(m => m.UserReceiver)
                                           .WithMany(u => u.messagesReceiver)
                                           .HasForeignKey(fk => fk.usernameReceiver);
-
-
-            TypeUser typeUser = new TypeUser{ Id = Guid.NewGuid(), nameType = "User" };
-            modelBuilder.Entity<TypeUser>().HasData(typeUser);
-            
-            modelBuilder.Entity<User>().HasData(
-                new User
-                {
-                    Fullname = "Zayd Elimrani",
-                    Username = "test",
-                    Password = "test",
-                    Numero = "0618053929",
-                    idTypeUser = typeUser.Id
-                });
         }
+
         public DbSet<Commande> Commande { get; set; }
         public DbSet<Cart> Cart { get; set; }
         public DbSet<Message> Message { get; set; }

@@ -1,9 +1,37 @@
 ﻿:root {
     --primary-color: #3285a8;
-    --background-secondary : whitesmoke;
+    --primary-color-light: #3285a840;
+    --background-secondary: whitesmoke;
+    --radius-main: 15px;
+    --radius-control: 10px;
 }
 * {
     font-family: 'poppins';
+}
+.form-control:focus, .btn-check:focus + .btn, .btn:focus {
+    border-color: var(--primary-color) !important;
+    box-shadow: 0 0 0 0.25rem var(--primary-color-light) !important;
+}
+body .form-control,body .btn{
+    border-radius: var(--radius-control);
+}
+
+.shadow-s{
+    box-shadow: 0 3px 1rem rgb(0 0 0 / 16%) !important;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.main {
+    max-width: 1300px;
+    width: 90%;
+    margin: auto;
+    height: 100%;
+    padding: 1rem;
 }
 
 .navbar .container-fluid{
@@ -21,24 +49,47 @@
 }
 
 .login {
-    border-radius: 1rem;
+    border-radius: var(--radius-main);
     padding: 2rem;
     max-width: 600px;
     margin: auto;
     margin-top: 1rem;
 }
 
-.main{
-    max-width: 1300px;
-    width: 90%;
-    margin:auto;
-}
-
-.btn-outline-mine {
+.btn-outline-mine{
     border-color: var(--primary-color) !important;
     color: var(--primary-color) !important;
 }
 .btn-outline-mine:hover{
     color: #fff !important;
     background-color: var(--primary-color) !important;
+}
+
+.btn-outline-mine-primary {
+    color: #fff !important;
+    background-color: var(--primary-color) !important;
+}
+.btn-outline-mine-primary:hover{
+    box-shadow: 0 0 0 0.25rem var(--primary-color-light) !important;
+}
+
+.chat{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    padding: 1rem 0;
+}
+.chat .sidebar {
+    background-color: var(--bs-light);
+    border-radius: var(--radius-main);
+    flex-basis: 300px;
+    padding: .75rem;
+}
+
+.chat .content{
+    margin-left:2rem;
+    flex-basis: calc(100% - 2rem);
+    height:100%;
+    border-radius: var(--radius-main);
+    background-color: var(--bs-light);
 }
