@@ -11,6 +11,9 @@ jobs:
     runs-on: self-hosted
 
     steps:
+      - name: stop server
+        run: IISReset /STOP
+        
       - uses: actions/checkout@v2
 
       - name: Set up .NET Core
@@ -26,4 +29,4 @@ jobs:
         run: dotnet publish -c Release -o ./myapp
         
       - name: Restart server
-        run: IISReset /RESTART
+        run: IISReset /START
