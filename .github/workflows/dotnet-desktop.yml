@@ -22,5 +22,8 @@ jobs:
       - name: Build with dotnet
         run: dotnet build --configuration Release
 
-      - name: dotnet publish
+      - name: Create deployment folder
         run: dotnet publish -c Release -o ./myapp
+        
+      - name: Restart server
+        run: IISReset /RESTART
